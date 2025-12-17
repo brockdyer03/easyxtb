@@ -187,6 +187,8 @@ class Calculation:
         # necessary to change the working dir
         # But we do anyway to be absolutely that xtb runs correctly and puts all the
         # output here
+        # Store the original CWD for resetting it later.
+        original_cwd = Path.cwd()
         os.chdir(self.calc_dir)
         logger.debug(f"Working directory changed to {Path.cwd()}")
         self.output_file = geom_file.with_name("output.out")
@@ -231,6 +233,9 @@ class Calculation:
             self.process_crest()
         else:
             self.process_xtb()
+        
+        # Reset current working directory to original
+        os.chdir(original_cwd)
 
     def process_xtb(self):
         # First do generic operations that apply to many calculation types
