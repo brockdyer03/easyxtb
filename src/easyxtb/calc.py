@@ -207,7 +207,7 @@ class Calculation:
         logger.debug(f"Calculation will be run with the command: {' '.join(command)}")
 
         # Run xtb or crest from command line
-        logger.debug("Running calculation in new subprocess...")
+        logger.debug(f"Running calculation in new subprocess using {self.calc_dir} as the working directory...")
         subproc = subprocess.run(command, capture_output=True, encoding="utf-8", cwd=self.calc_dir)
         logger.debug("...calculation complete.")
 
