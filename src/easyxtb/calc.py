@@ -183,14 +183,7 @@ class Calculation:
         geom_file = self.calc_dir / "input.xyz"
         logger.debug(f"Saving input geometry to {geom_file}")
         self.input_geometry.write_xyz(geom_file)
-        # We are using proper paths for pretty much everything so it shouldn't be
-        # necessary to change the working dir
-        # But we do anyway to be absolutely that xtb runs correctly and puts all the
-        # output here
-        # Store the original CWD for resetting it later.
-        original_cwd = Path.cwd()
-        os.chdir(self.calc_dir)
-        logger.debug(f"Working directory changed to {Path.cwd()}")
+        
         self.output_file = geom_file.with_name("output.out")
 
         # Build command line args
@@ -215,7 +208,7 @@ class Calculation:
 
         # Run xtb or crest from command line
         logger.debug("Running calculation in new subprocess...")
-        subproc = subprocess.run(command, capture_output=True, encoding="utf-8")
+        subproc = subprocess.run(command, capture_output=True, encoding="utf-8", cwd=self.calc_dir)
         logger.debug("...calculation complete.")
 
         # Store output
@@ -233,9 +226,6 @@ class Calculation:
             self.process_crest()
         else:
             self.process_xtb()
-        
-        # Reset current working directory to original
-        os.chdir(original_cwd)
 
     def process_xtb(self):
         # First do generic operations that apply to many calculation types
