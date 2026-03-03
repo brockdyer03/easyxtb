@@ -59,15 +59,17 @@ def _load_paths():
         logger.error(e.message)
         print(e.message)
         raise e
-    
+
     # Define location used to store the binaries on system if their locations are not
     # provided by the user in config
     BIN_DIR = PLUGIN_DIR / "bin"
     logger.debug(f"{BIN_DIR=}")
     BIN_DIR.mkdir(parents=True, exist_ok=True)
 
+
 def reload_paths():
     _load_paths()
+
 
 def _update_config():
     """Ensure that any config options added in later versions of the package are in
@@ -88,10 +90,12 @@ def _update_config():
     config["version"] = easyxtb_VERSION
     save_config()
 
+
 def save_config():
     with open(config_file, "w", encoding="utf-8") as f:
         json.dump(config, f, indent=2)
     logger.debug(f"User config saved to {config_file}")
+
 
 def _determine_threads() -> int:
     """Work out a sensible number of threads to use for calculations."""
@@ -99,6 +103,7 @@ def _determine_threads() -> int:
     # Leave more spare cores the more there are available
     sensible_threads = int(n_threads // 1.3)
     return sensible_threads
+
 
 # Now for everything that should run when the module is loaded
 

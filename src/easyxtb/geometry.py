@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Atom:
     """An individual atom with an element symbol and 3D coordinates in ångstrom.
-    
+
     Attributes
     ----------
     element : str
@@ -30,6 +30,7 @@ class Atom:
     z : float
         The z-component of the atom's position in ångstrom.
     """
+
     element: str
     x: float
     y: float
@@ -45,6 +46,7 @@ class Geometry:
     `spin` is the number of unpaired electrons, not the multiplicity, matching
     the `--uhf` flag of `xtb`.
     """
+
     def __init__(
         self,
         atoms: list[Atom],
@@ -62,7 +64,7 @@ class Geometry:
         spin : int
             The number of unpaired electrons.
         """
-        
+
         self.atoms = atoms
         self.charge = charge
         if spin >= 0:
@@ -73,9 +75,9 @@ class Geometry:
 
     def __iter__(self) -> Iterator[Atom]:
         """Iterate over the constituent atoms.
-        
+
         This allows a `Geometry` to be iterated over using e.g.
-        
+
         ```python
         my_geom = easyxtb.Geometry.from_file("some_file.xyz")
         for atom in my_geom:
@@ -87,7 +89,7 @@ class Geometry:
 
     def to_xyz(self, comment: str | None = None) -> list[str]:
         """Generate an XYZ, as a list of lines, for the geometry.
-        
+
         Optional text to include on the second line of the XYZ can be passed as
         `comment`. If left as `None`, it defaults to `"xyz prepared by easyxtb"`.
         """

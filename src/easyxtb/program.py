@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Program:
     """Represents a quantum chemical program that can be run from the command line."""
+
     name: str
     path: Path
     runtypes: list[str]
@@ -28,18 +29,19 @@ def find_bin(program: str) -> Path | None:
     """Return path to xtb or CREST binary as Path object, or None."""
     bin_name = f"{program}.exe" if platform.system() == "Windows" else program
     bin_path = None
-    for possible_location in [
-        BIN_DIR / bin_name,  # Normal binary or symlink to it
-        BIN_DIR / program / bin_name,  # Old layout for xtb, current for CREST
-        BIN_DIR
-        / f"{program}-dist/bin/{bin_name}",  # Whole xtb distribution folder with nested binary directory
-    ]:
-        if possible_location.exists() and not possible_location.is_dir():
-            bin_path = possible_location
-            break
-    # Otherwise check the PATH
+    # First check the PATH
     if not bin_path and which(bin_name) is not None:
         bin_path = Path(which(bin_name))
+    if not bin_path:
+        for possible_location in [
+            BIN_DIR / bin_name,  # Normal binary or symlink to it
+            BIN_DIR / program / bin_name,  # Old layout for xtb, current for CREST
+            BIN_DIR
+            / f"{program}-dist/bin/{bin_name}",  # Whole xtb distribution folder with nested binary directory
+        ]:
+            if possible_location.exists() and not possible_location.is_dir():
+                bin_path = possible_location
+                break
     logger.debug(f"{bin_name} binary location determined to be: {bin_path}")
     return bin_path
 

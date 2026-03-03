@@ -89,7 +89,7 @@ def smartopt(
     options: dict | None = None,
 ) -> Geometry:
     """Optimize the geometry repeatedly until a minimum is reached.
-    
+
     If xtb is run with the `ohess` runtype (an optimization and subsequent frequency
     calculation) and the program detects one or more imaginary frequencies in the
     result, it distorts the optimized geometry away from the stationary point and
@@ -139,7 +139,7 @@ def orbitals(
     method: int | None = None,
     n_proc: int | None = None,
     options: dict | None = None,
-    ) -> str:
+) -> str:
     """Calculate molecular orbitals for given geometry.
 
     Returns a string of the Molden-format output file, which contains principally the
@@ -222,7 +222,7 @@ def protonate(
 
     The returned tautomers are ordered from lowest to highest energy.
     """
-    
+
     calc = Calculation.protonate(
         input_geometry=input_geometry,
         solvation=solvation,
@@ -245,7 +245,7 @@ def deprotonate(
 
     The returned tautomers are ordered from lowest to highest energy.
     """
-    
+
     calc = Calculation.deprotonate(
         input_geometry=input_geometry,
         solvation=solvation,

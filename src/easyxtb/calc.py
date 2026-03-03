@@ -148,7 +148,7 @@ class Calculation:
             else:
                 command.extend([flag, value])
         return command
-    
+
     def preview_command(self):
         """Return the command that will be used to run xtb or crest based on the current
         attributes of the `Calculation`."""
@@ -183,7 +183,7 @@ class Calculation:
         geom_file = self.calc_dir / "input.xyz"
         logger.debug(f"Saving input geometry to {geom_file}")
         self.input_geometry.write_xyz(geom_file)
-        
+
         self.output_file = geom_file.with_name("output.out")
 
         # Build command line args
@@ -207,7 +207,9 @@ class Calculation:
         logger.debug(f"Calculation will be run with the command: {' '.join(command)}")
 
         # Run xtb or crest from command line
-        logger.debug(f"Running calculation in new subprocess using {self.calc_dir} as the working directory...")
+        logger.debug(
+            f"Running calculation in new subprocess using {self.calc_dir} as the working directory..."
+        )
         subproc = subprocess.run(command, capture_output=True, encoding="utf-8", cwd=self.calc_dir)
         logger.debug("...calculation complete.")
 
@@ -370,10 +372,10 @@ class Calculation:
         options: dict | None = None,
     ):
         """Construct a Calculation for an `xtb` single-point energy calculation.
-        
+
         If `molden` is `True`, a print-out of the molecular orbitals in Molden format
         will be requested.
-        
+
         Parameters
         ----------
         input_geometry
@@ -415,7 +417,7 @@ class Calculation:
         options: dict | None = None,
     ):
         """Construct a Calculation for an `xtb` geometry optimization.
-        
+
         Corresponds to the `--opt` runtype.
 
         Parameters
@@ -459,7 +461,7 @@ class Calculation:
         options: dict | None = None,
     ):
         """Construct a Calculation for an `xtb` vibrational frequency calculation.
-        
+
         Corresponds to the `--hess` runtype.
         """
 
