@@ -28,7 +28,7 @@ input_geom = easyxtb.Geometry.from_file(Path.home() / "calcs/benzoic_acid.xyz")
 optimized = easyxtb.calculate.optimize(input_geom, level="normal", solvation="water")
 ```
 
-An guide for [getting started](https://easyxtb.readthedocs.io/en/latest/guide/) and details of the API can be found in the [documentation](https://easyxtb.readthedocs.io/en/latest/).
+A guide for [getting started](https://easyxtb.readthedocs.io/en/latest/guide/) and details of the API can be found in the [documentation](https://easyxtb.readthedocs.io/en/latest/).
 
 ## Requirements
 
