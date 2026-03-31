@@ -211,7 +211,6 @@ class Geometry:
             # Guard against empty final line or line starting with something other than
             # an element symbol
             if len(atom_parts) >= 4 and atom_parts[0].isalpha():
-                coords = [float(n) for n in atom_parts[1:4]]
                 atoms.append(Atom(atom_parts[0], *[float(n) for n in atom_parts[1:4]]))
         return Geometry(atoms, charge, spin, _comment=xyz_lines[1])
 
